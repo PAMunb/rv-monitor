@@ -125,6 +125,10 @@ public class RawMonitor extends Monitor {
         }
         ret += ") {\n";
 
+        ret += "RVMLogging.out.println(this.name + \","
+                + event.getId()
+                + ",\" + com.runtimeverification.rvmonitor.java.rt.ViolationRecorder.getLineOfCode());\n";
+
         if (has__SKIP)
             ret += "boolean " + BaseMonitor.skipEvent + " = false;\n";
 
@@ -227,11 +231,13 @@ public class RawMonitor extends Monitor {
             ret += stat.fieldDecl() + "\n";
         }
 
+        ret += "private String name;\n";
         //constructor
         ret += monitorName + "(){\n";
         if (Main.statistics) {
             ret += stat.incNumMonitor();
         }
+        ret += "this.name  = this.toString();\n";
         ret += "}\n";
 
         if (Main.statistics) {

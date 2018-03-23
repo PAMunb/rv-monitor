@@ -376,9 +376,10 @@ public class BaseMonitor extends Monitor {
         // To eliminate unnecessary
         // hassle, I let it generate 'void' methods for monitoring.
         boolean retbool = !Main.generateVoidMethods;
+        RVMVariable eventMethod = propMonitor.eventMethods.get(event.getId());
         ret += "final" + synch + (retbool ? "boolean " : "void ")
                 + methodNamePrefix
-                + propMonitor.eventMethods.get(event.getId()) + "(";
+                + eventMethod + "(";
         // CL: Let's not pass parameters that are never referred to by the
         // user's action code.
         {
@@ -390,6 +391,10 @@ public class BaseMonitor extends Monitor {
             ret += params.parameterDeclString();
         }
         ret += ") {\n";
+
+        ret += "RVMLogging.out.println(this.name + \","
+                + eventMethod.getVarName()
+                + ",\" + com.runtimeverification.rvmonitor.java.rt.ViolationRecorder.getLineOfCode());\n";
 
         if (prop == props.get(props.size() - 1) && eventAction != null) {
             for (RVMParameter p : event.getUsedParametersIn(specParam)) {
@@ -836,6 +841,7 @@ public class BaseMonitor extends Monitor {
             ret += fmt.getCode();
         }
 
+        ret += "private String name;\n";
         // constructor
         ret += monitorName + "(";
         {
@@ -860,6 +866,7 @@ public class BaseMonitor extends Monitor {
             }
         }
         ret += ") {\n";
+        ret += "this.name  = this.toString();\n";
         if (feature.isTimeTrackingNeeded())
             ret += "this.tau = tau;\n";
         for (PropertyAndHandlers prop : props) {
