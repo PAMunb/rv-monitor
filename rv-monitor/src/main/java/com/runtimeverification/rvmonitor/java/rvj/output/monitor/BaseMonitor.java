@@ -376,9 +376,10 @@ public class BaseMonitor extends Monitor {
         // To eliminate unnecessary
         // hassle, I let it generate 'void' methods for monitoring.
         boolean retbool = !Main.generateVoidMethods;
+        RVMVariable eventMethod = propMonitor.eventMethods.get(event.getId());
         ret += "final" + synch + (retbool ? "boolean " : "void ")
                 + methodNamePrefix
-                + propMonitor.eventMethods.get(event.getId()) + "(";
+                + eventMethod + "(";
         // CL: Let's not pass parameters that are never referred to by the
         // user's action code.
         {
@@ -390,7 +391,9 @@ public class BaseMonitor extends Monitor {
             ret += params.parameterDeclString();
         }
         ret += ") {\n";
-
+        ret += "eventTrace.add(new javafx.util.Pair(\""
+                + eventMethod
+                + "\", com.runtimeverification.rvmonitor.java.rt.ViolationRecorder.getLineOfCode()));\n";
         if (prop == props.get(props.size() - 1) && eventAction != null) {
             for (RVMParameter p : event.getUsedParametersIn(specParam)) {
                 if (!event.getRVMParametersOnSpec().contains(p)) {
@@ -831,6 +834,7 @@ public class BaseMonitor extends Monitor {
             ret += fmt.getCode();
         }
 
+        ret += "Set<javafx.util.Pair<String, String>> eventTrace;\n";
         // constructor
         ret += monitorName + "(";
         {
@@ -888,6 +892,7 @@ public class BaseMonitor extends Monitor {
             ret += "this.trace = new ArrayList<String>();\n";
             ret += "this.monitorid = ++nextid;\n";
         }
+        ret += "this.eventTrace = new LinkedHashSet<>();\n";
         ret += "}\n";
         ret += "\n";
 

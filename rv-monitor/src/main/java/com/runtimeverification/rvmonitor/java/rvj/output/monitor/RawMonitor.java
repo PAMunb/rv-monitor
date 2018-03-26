@@ -107,6 +107,7 @@ public class RawMonitor extends Monitor {
                     + activity);
             eventActionStr = eventActionStr.replaceAll("__SKIP",
                     BaseMonitor.skipEvent + " = true");
+//            eventActionStr += "\nRVMLogging.out.println(Level.WARNING, \"Event Trace: \" + eventTrace);\n";
 
             eventAction = new RVMJavaCode(eventActionStr);
         }
@@ -124,6 +125,10 @@ public class RawMonitor extends Monitor {
             ret += params.parameterDeclString();
         }
         ret += ") {\n";
+
+        ret += "eventTrace.add(new javafx.util.Pair(\""
+                + event.getId()
+                + "\", com.runtimeverification.rvmonitor.java.rt.ViolationRecorder.getLineOfCode()));\n";
 
         if (has__SKIP)
             ret += "boolean " + BaseMonitor.skipEvent + " = false;\n";
@@ -222,7 +227,9 @@ public class RawMonitor extends Monitor {
         }
 
         //constructor
+        ret += "Set<javafx.util.Pair<String, String>> eventTrace;\n";
         ret += monitorName + "(){\n";
+        ret += "this.eventTrace = new LinkedHashSet<>();\n";
         if (Main.statistics) {
             ret += stat.incNumMonitor();
         }

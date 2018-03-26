@@ -38,13 +38,14 @@ public class HandlerMethod {
 
             handlerBody = handlerBody.replaceAll("__RESET", "this.reset()");
             handlerBody = handlerBody.replaceAll("__DEFAULT_MESSAGE",
-                    monitor.getDefaultMessage());
+                    monitor.getDefaultMessage() + " + \". Event Trace:\" +  eventTrace");
             // __DEFAULT_MESSAGE may contain __LOC, make sure to sub in
             // __DEFAULT_MESSAGE first
             // -P
             handlerBody = handlerBody.replaceAll("__LOC", Util.defaultLocation);
             handlerBody = handlerBody.replaceAll("__SKIP",
                     BaseMonitor.skipEvent + " = true");
+//            handlerBody += "\nRVMLogging.out.println(Level.WARNING, \"Event Trace: \" + eventTrace);\n";
 
             this.handlerCode = new RVMJavaCode(handlerBody);
         } else {
