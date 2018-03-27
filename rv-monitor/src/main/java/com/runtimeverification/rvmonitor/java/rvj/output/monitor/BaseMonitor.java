@@ -834,7 +834,7 @@ public class BaseMonitor extends Monitor {
             ret += fmt.getCode();
         }
 
-        ret += "Set<javafx.util.Pair<String, String>> eventTrace;\n";
+        ret += "List<javafx.util.Pair<String, String>> eventTrace;\n";
         // constructor
         ret += monitorName + "(";
         {
@@ -892,7 +892,7 @@ public class BaseMonitor extends Monitor {
             ret += "this.trace = new ArrayList<String>();\n";
             ret += "this.monitorid = ++nextid;\n";
         }
-        ret += "this.eventTrace = new LinkedHashSet<>();\n";
+        ret += "this.eventTrace = new ArrayList<>();\n";
         ret += "}\n";
         ret += "\n";
 

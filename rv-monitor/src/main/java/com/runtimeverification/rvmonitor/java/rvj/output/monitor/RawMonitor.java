@@ -227,9 +227,9 @@ public class RawMonitor extends Monitor {
         }
 
         //constructor
-        ret += "Set<javafx.util.Pair<String, String>> eventTrace;\n";
+        ret += "List<javafx.util.Pair<String, String>> eventTrace;\n";
         ret += monitorName + "(){\n";
-        ret += "this.eventTrace = new LinkedHashSet<>();\n";
+        ret += "this.eventTrace = new ArrayList<>();\n";
         if (Main.statistics) {
             ret += stat.incNumMonitor();
         }
