@@ -508,7 +508,7 @@ public class BaseMonitor extends Monitor {
             ret += "final " + this.monitorName + " " + finalMonitor + " = "
                     + monitorVar + ";\n";
             String handlerCode = getHandlerCallingCode(finalMonitor, event,
-                    propMonitor, inMonitorSet);
+                    propMonitor);
             if (!event.isBlockingEvent()) {
                 ret += monitorVar + "."
                         + propMonitor.eventMethods.get(event.getId()) + "(";
@@ -606,7 +606,7 @@ public class BaseMonitor extends Monitor {
     }
 
     private String getHandlerCallingCode(RVMVariable monitorVar,
-                                         EventDefinition event, PropMonitor propMonitor, boolean inMonitorSet) {
+            EventDefinition event, PropMonitor propMonitor) {
         String ret = "";
         if (event.getCondition() != null && event.getCondition().length() != 0) {
             ret += "if(" + monitorVar + "." + conditionFail + "){\n";
@@ -629,17 +629,12 @@ public class BaseMonitor extends Monitor {
 
             // Generate code to trigger handler
             ret += "if(" + monitorVar + "." + rvmVariable + ") {\n";
-            ret += "List<StackTraceElement> relevantList = recorder.getMinimalRelevantStack();\n";
-            ret += "recorder.occurrences.putIfAbsent(\"" + getOutputName() + "\", new HashMap<List<StackTraceElement>, Integer>());\n";
-            ret += "int count = recorder.occurrences.get(\"" + getOutputName() + "\").getOrDefault(relevantList, 0);\n";
-            ret += "if (count == 0) {\n";
             ret += monitorVar + "." + handlerMethod.getMethodName() + "(";
             if (!Main.stripUnusedParameterInMonitor)
                 ret += event.getRVMParametersOnSpec().parameterStringIn(
                         specParam);
             ret += ");\n";
-            ret += "}\n";
-            ret += "recorder.occurrences.get(\"" + getOutputName() + "\").put(relevantList, ++count);\n";
+
             ret += "}\n";
         }
         if (existSkip) {
