@@ -14,7 +14,7 @@ public abstract class AbstractMonitor implements IMonitor, RVMObject {
 	public String toString() {
 		String r = this.getClass().getSimpleName();
 		r += "#";
-		r += String.format("%03x", this.hashCode());
+		r += System.identityHashCode(this);
 		return r;
 	}
 }
