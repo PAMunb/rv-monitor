@@ -13,8 +13,7 @@ public abstract class AbstractMonitor implements IMonitor, RVMObject {
 	@Override
 	public String toString() {
 		String r = this.getClass().getSimpleName();
-		r += "#";
-		r += System.identityHashCode(this);
+		r += "#" + System.identityHashCode(this);
 		return r;
 	}
 }
