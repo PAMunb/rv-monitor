@@ -86,109 +86,108 @@ public class MonitorTermination {
                         ret += "final ";
                     ret += getRefType(param) + " " + references.get(param)
                             + ";";
-                } else
-                    ret += "// " + references.get(param)
-                    + " was suppressed to reduce memory overhead";
+                }
+//                else
+//                    ret += "// " + references.get(param)
+//                    + " was suppressed to reduce memory overhead";
                 ret += "\n";
             }
         }
         ret += "\n";
 
-        for (int j = 0; j < coenableSet.getParameterGroups().size(); j++) {
-            ret += "//alive_parameters_" + j + " = "
-                    + coenableSet.getParameterGroups().get(j) + "\n";
-            ret += "boolean " + new RVMVariable("alive_parameters_" + j)
-            + " = true;\n";
-        }
-        ret += "\n";
+//        for (int j = 0; j < coenableSet.getParameterGroups().size(); j++) {
+//            ret += "//alive_parameters_" + j + " = "
+//                    + coenableSet.getParameterGroups().get(j) + "\n";
+//            ret += "boolean " + new RVMVariable("alive_parameters_" + j)
+//            + " = true;\n";
+//        }
+//        ret += "\n";
 
         ret += "@Override\n";
         ret += "protected" + synch
                 + "final void terminateInternal(int idnum) {\n";
 
-        if (decl != null)
-            ret += decl + "\n";
-
-        ret += "switch(idnum){\n";
-        for (int i = 0; i < parameters.size(); i++) {
-            ret += "case " + i + ":\n";
-
-            for (int j = 0; j < coenableSet.getParameterGroups().size(); j++) {
-                if (coenableSet.getParameterGroups().get(j)
-                        .contains(parameters.get(i)))
-                    ret += RVMNameSpace.getRVMVar("alive_parameters_" + j)
-                    + " = false;\n";
-            }
-
-            ret += "break;\n";
-        }
+//        if (decl != null)
+//            ret += decl + "\n";
+//
+//        ret += "switch(idnum){\n";
+//        for (int i = 0; i < parameters.size(); i++) {
+//            ret += "case " + i + ":\n";
+//
+//            for (int j = 0; j < coenableSet.getParameterGroups().size(); j++) {
+//                if (coenableSet.getParameterGroups().get(j)
+//                        .contains(parameters.get(i)))
+//                    ret += RVMNameSpace.getRVMVar("alive_parameters_" + j)
+//                    + " = false;\n";
+//            }
+//
+//            ret += "break;\n";
+//        }
+//        ret += "}\n";
+//
+//         do endObject event
+//        ret += "switch(" + lastEventVar + ") {\n";
+//        ret += "case -1:\n";
+//        ret += "return;\n";
+//        for (EventDefinition event : this.events) {
+//            ret += "case " + event.getIdNum() + ":\n";
+//            ret += "//" + event.getId() + "\n";
+//
+//            RVMParameterSet simplifiedDNF = coenableSet
+//                    .getEnable(event.getId());
+//            if (simplifiedDNF.size() == 1 && simplifiedDNF.get(0).size() == 0) {
+//                ret += "return;\n";
+//            } else {
+//                boolean firstFlag = true;
+//
+//                ret += "//";
+//                for (RVMParameters param : simplifiedDNF) {
+//                    if (firstFlag) {
+//                        firstFlag = false;
+//                    } else {
+//                        ret += " || ";
+//                    }
+//                    boolean firstFlag2 = true;
+//                    for (RVMParameter s : param) {
+//                        if (firstFlag2) {
+//                            firstFlag2 = false;
+//                        } else {
+//                            ret += " && ";
+//                        }
+//
+//                        ret += "alive_" + s.getName();
+//                    }
+//                }
+//                ret += "\n";
+//
+//                ret += "if(!(";
+//                firstFlag = true;
+//                for (RVMParameters param : simplifiedDNF) {
+//                    if (firstFlag) {
+//                        firstFlag = false;
+//                    } else {
+//                        ret += " || ";
+//                    }
+//                    ret += "alive_parameters_"
+//                            + coenableSet.getParameterGroups().getIdnum(param);
+//                }
+//                ret += ")){\n";
+//                ret += "RVM_terminated = true;\n";
+//
+//                if (Main.statistics) {
+//                    ret += stat.incTerminatedMonitor();
+//                }
+//
+//                ret += "return;\n";
+//                ret += "}\n";
+//                ret += "break;\n";
+//                ret += "\n";
+//            }
+//        }
+//        ret += "}\n";
+//
+//        ret += "return;\n";
         ret += "}\n";
-
-        // do endObject event
-        ret += "switch(" + lastEventVar + ") {\n";
-        ret += "case -1:\n";
-        ret += "return;\n";
-        for (EventDefinition event : this.events) {
-            ret += "case " + event.getIdNum() + ":\n";
-            ret += "//" + event.getId() + "\n";
-
-            RVMParameterSet simplifiedDNF = coenableSet
-                    .getEnable(event.getId());
-            if (simplifiedDNF.size() == 1 && simplifiedDNF.get(0).size() == 0) {
-                ret += "return;\n";
-            } else {
-                boolean firstFlag = true;
-
-                ret += "//";
-                for (RVMParameters param : simplifiedDNF) {
-                    if (firstFlag) {
-                        firstFlag = false;
-                    } else {
-                        ret += " || ";
-                    }
-                    boolean firstFlag2 = true;
-                    for (RVMParameter s : param) {
-                        if (firstFlag2) {
-                            firstFlag2 = false;
-                        } else {
-                            ret += " && ";
-                        }
-
-                        ret += "alive_" + s.getName();
-                    }
-                }
-                ret += "\n";
-
-                ret += "if(!(";
-                firstFlag = true;
-                for (RVMParameters param : simplifiedDNF) {
-                    if (firstFlag) {
-                        firstFlag = false;
-                    } else {
-                        ret += " || ";
-                    }
-                    ret += "alive_parameters_"
-                            + coenableSet.getParameterGroups().getIdnum(param);
-                }
-                ret += ")){\n";
-                ret += "RVM_terminated = true;\n";
-
-                if (Main.statistics) {
-                    ret += stat.incTerminatedMonitor();
-                }
-
-                ret += "return;\n";
-                ret += "}\n";
-                ret += "break;\n";
-                ret += "\n";
-            }
-        }
-        ret += "}\n";
-
-        ret += "return;\n";
-
-        ret += "}\n";
-        ret += "\n";
 
         if (Main.statistics) {
             ret += "protected void finalize() throws Throwable {\n";

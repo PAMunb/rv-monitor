@@ -630,7 +630,7 @@ public class MonitorSet {
         RVMVariable monitor = new RVMVariable("monitor");
         // RVMVariable num_terminated_monitors = new
         // RVMVariable("num_terminated_monitors");
-        RVMVariable numAlive = new RVMVariable("numAlive");
+//        RVMVariable numAlive = new RVMVariable("numAlive");
         RVMVariable loopindex = new RVMVariable("i");
         // elementData and size are safe since they will be accessed by the
         // prefix "this.".
@@ -754,25 +754,25 @@ public class MonitorSet {
                     }
                 }
 
-                ret += "int " + numAlive + " = 0 ;\n";
+//                ret += "int " + numAlive + " = 0 ;\n";
                 ret += "for(int " + loopindex + " = 0; " + loopindex
                         + " < this.size; " + loopindex + "++){\n";
                 ret += monitorName + " " + monitor + " = this.elements["
                         + loopindex + "];\n";
-                ret += "if(!" + monitor + ".isTerminated()){\n";
-                ret += "elements[" + numAlive + "] = " + monitor + ";\n";
-                ret += numAlive + "++;\n";
+//                ret += "if(!" + monitor + ".isTerminated()){\n";
+//                ret += "elements[" + numAlive + "] = " + monitor + ";\n";
+//                ret += numAlive + "++;\n";
                 ret += "\n";
                 ret += this.monitor.Monitoring(monitor, event, loc,
                         this.monitorLock, this.monitor.getOutputName(), true);
                 ret += "}\n";
-                ret += "}\n";
+//                ret += "}\n";
 
-                ret += "for(int " + loopindex + " = " + numAlive + "; "
-                        + loopindex + " < this.size; " + loopindex + "++){\n";
-                ret += "this.elements[" + loopindex + "] = null;\n";
-                ret += "}\n";
-                ret += "size = numAlive;\n";
+//                ret += "for(int " + loopindex + " = " + numAlive + "; "
+//                        + loopindex + " < this.size; " + loopindex + "++){\n";
+//                ret += "this.elements[" + loopindex + "] = null;\n";
+//                ret += "}\n";
+//                ret += "size = numAlive;\n";
             }
             ret += "}\n";
         }

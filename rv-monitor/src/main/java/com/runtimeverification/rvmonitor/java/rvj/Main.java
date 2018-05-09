@@ -166,6 +166,7 @@ public class Main {
 
         RVMProcessor processor = new RVMProcessor(outputName);
         String output = processor.process(combinedSpec);
+//        System.out.println("Final Output: " + output);
 
         writeCombinedOutputFile(output, outputName);
     }

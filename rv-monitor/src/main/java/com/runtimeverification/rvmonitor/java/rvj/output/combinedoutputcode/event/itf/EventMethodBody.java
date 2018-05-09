@@ -813,12 +813,12 @@ public class EventMethodBody extends AdviceBody implements ICodeGenerator {
         }
 
         {
-            CodeVarDeclStmt declnumalive = new CodeVarDeclStmt(
-                    new CodeVariable(CodeType.integer(), "numalive"),
-                    CodeLiteralExpr.integer(0));
-            CodeVarRefExpr numaliveref = new CodeVarRefExpr(
-                    declnumalive.getVariable());
-            stmts.add(declnumalive);
+//            CodeVarDeclStmt declnumalive = new CodeVarDeclStmt(
+//                    new CodeVariable(CodeType.integer(), "numalive"),
+//                    CodeLiteralExpr.integer(0));
+//            CodeVarRefExpr numaliveref = new CodeVarRefExpr(
+//                    declnumalive.getVariable());
+//            stmts.add(declnumalive);
 
             CodeVarDeclStmt declsize = new CodeVarDeclStmt(new CodeVariable(
                     CodeType.integer(), "setlen"), new CodeMethodInvokeExpr(
@@ -866,12 +866,12 @@ public class EventMethodBody extends AdviceBody implements ICodeGenerator {
                 loopbody.add(new CodeConditionStmt(ifalive, alivebody));
 
                 {
-                    CodeExpr incrnumalive = CodePrePostfixExpr.postfix(
-                            numaliveref, true);
-                    CodeMethodInvokeExpr move = new CodeMethodInvokeExpr(
-                            CodeType.foid(), source.getSetRef(), "set",
-                            incrnumalive, srcmonref);
-                    alivebody.add(new CodeExprStmt(move));
+//                    CodeExpr incrnumalive = CodePrePostfixExpr.postfix(
+//                            numaliveref, true);
+//                    CodeMethodInvokeExpr move = new CodeMethodInvokeExpr(
+//                            CodeType.foid(), source.getSetRef(), "set",
+//                            incrnumalive, srcmonref);
+//                    alivebody.add(new CodeExprStmt(move));
 
                     alivebody.add(borrowedweakrefs.getDeclarationCode(
                             this.monitorClass, srcmonref));
@@ -935,9 +935,9 @@ public class EventMethodBody extends AdviceBody implements ICodeGenerator {
                 }
             }
 
-            CodeExpr erase = new CodeMethodInvokeExpr(CodeType.foid(),
-                    source.getSetRef(), "eraseRange", numaliveref);
-            stmts.add(new CodeExprStmt(erase));
+//            CodeExpr erase = new CodeMethodInvokeExpr(CodeType.foid(),
+//                    source.getSetRef(), "eraseRange", numaliveref);
+//            stmts.add(new CodeExprStmt(erase));
         }
 
         return stmts;

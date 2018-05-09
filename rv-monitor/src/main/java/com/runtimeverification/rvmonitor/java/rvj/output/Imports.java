@@ -16,8 +16,7 @@ public class Imports {
             "java.util.*",
             "java.lang.ref.*",
             "com.runtimeverification.rvmonitor.java.rt.*",
-            "com.runtimeverification.rvmonitor.java.rt.ref.*",
-            "com.runtimeverification.rvmonitor.java.rt.table.*",
+//            "com.runtimeverification.rvmonitor.java.rt.ref.*",
             "com.runtimeverification.rvmonitor.java.rt.tablebase.AbstractIndexingTree",
             // "com.runtimeverification.rvmonitor.java.rt.tablebase.IBucketNode",
             "com.runtimeverification.rvmonitor.java.rt.tablebase.SetEventDelegator",
@@ -62,6 +61,8 @@ public class Imports {
 
         if (Main.useAtomicMonitor)
             imports.add("java.util.concurrent.atomic.AtomicInteger");
+
+        imports.add("import java.lang.rv.*");
     }
 
     private void addImports(String[] array) {

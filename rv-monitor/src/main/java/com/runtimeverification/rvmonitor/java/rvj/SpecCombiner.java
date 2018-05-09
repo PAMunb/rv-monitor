@@ -62,7 +62,6 @@ public class SpecCombiner {
                     specList.add(spec2);
             }
         }
-
         return new RVMSpecFile(0, 0, pakage, imports, specList);
     }
 }
