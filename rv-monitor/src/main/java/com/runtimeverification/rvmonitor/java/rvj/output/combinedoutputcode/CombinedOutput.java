@@ -17,8 +17,10 @@ import com.runtimeverification.rvmonitor.java.rvj.output.combinedoutputcode.newi
 import com.runtimeverification.rvmonitor.java.rvj.output.combinedoutputcode.newindexingtree.IndexingTreeInterface;
 import com.runtimeverification.rvmonitor.java.rvj.output.monitor.BaseMonitor;
 import com.runtimeverification.rvmonitor.java.rvj.output.monitor.Monitor;
+import com.runtimeverification.rvmonitor.java.rvj.output.monitor.MonitorFactory;
 import com.runtimeverification.rvmonitor.java.rvj.output.monitor.SuffixMonitor;
 import com.runtimeverification.rvmonitor.java.rvj.output.monitorset.MonitorSet;
+import com.runtimeverification.rvmonitor.java.rvj.output.monitorset.MonitorSetFactory;
 import com.runtimeverification.rvmonitor.java.rvj.parser.ast.RVMSpecFile;
 import com.runtimeverification.rvmonitor.java.rvj.parser.ast.rvmspec.EventDefinition;
 import com.runtimeverification.rvmonitor.java.rvj.parser.ast.rvmspec.RVMParameter;
@@ -53,9 +55,11 @@ public class CombinedOutput {
     }
 
     public CombinedOutput(String name, RVMSpecFile rvmSpecFile,
-            TreeMap<RVMonitorSpec, MonitorSet> monitorSets,
-            TreeMap<RVMonitorSpec, SuffixMonitor> monitors,
-            TreeMap<RVMonitorSpec, EnableSet> enableSets) throws RVMException {
+                          TreeMap<RVMonitorSpec, MonitorSet> monitorSets,
+                          TreeMap<RVMonitorSpec, SuffixMonitor> monitors,
+                          TreeMap<RVMonitorSpec, EnableSet> enableSets,
+                          TreeMap<RVMonitorSpec, MonitorSetFactory> monitorSetFactories,
+                          TreeMap<RVMonitorSpec, MonitorFactory> monitorFactories) throws RVMException {
         this.name = name + "RuntimeMonitor";
         this.monitorSets = monitorSets;
         this.monitors = monitors;

@@ -4,9 +4,11 @@ import java.util.TreeMap;
 
 import com.runtimeverification.rvmonitor.java.rvj.output.combinedoutputcode.CombinedOutput;
 import com.runtimeverification.rvmonitor.java.rvj.output.combinedoutputcode.indexingtree.reftree.RefTree;
+import com.runtimeverification.rvmonitor.java.rvj.output.monitor.MonitorFactory;
 import com.runtimeverification.rvmonitor.java.rvj.output.monitor.MonitorFeatures;
 import com.runtimeverification.rvmonitor.java.rvj.output.monitor.SuffixMonitor;
 import com.runtimeverification.rvmonitor.java.rvj.output.monitorset.MonitorSet;
+import com.runtimeverification.rvmonitor.java.rvj.output.monitorset.MonitorSetFactory;
 import com.runtimeverification.rvmonitor.java.rvj.parser.ast.RVMSpecFile;
 import com.runtimeverification.rvmonitor.java.rvj.parser.ast.rvmspec.PropertyAndHandlers;
 import com.runtimeverification.rvmonitor.java.rvj.parser.ast.rvmspec.RVMonitorSpec;
@@ -18,6 +20,8 @@ public class RVMOutputCode {
     private final Package packageDecl;
     private final Imports imports;
     private final TreeMap<RVMonitorSpec, MonitorSet> monitorSets = new TreeMap<RVMonitorSpec, MonitorSet>();
+    private final TreeMap<RVMonitorSpec, MonitorSetFactory> monitorSetFactories = new TreeMap<RVMonitorSpec, MonitorSetFactory>();
+    private final TreeMap<RVMonitorSpec, MonitorFactory> monitorFactories = new TreeMap<RVMonitorSpec, MonitorFactory>();
     private final TreeMap<RVMonitorSpec, SuffixMonitor> monitors = new TreeMap<RVMonitorSpec, SuffixMonitor>();
     private final CombinedOutput output;
     private final TreeMap<RVMonitorSpec, EnableSet> enableSets = new TreeMap<RVMonitorSpec, EnableSet>();
@@ -56,10 +60,13 @@ public class RVMOutputCode {
 
             monitorSets.put(rvmSpec, new MonitorSet(rvmSpec.getName(), rvmSpec,
                     monitor));
+
+            monitorSetFactories.put(rvmSpec, new MonitorSetFactory(monitor));
+            monitorFactories.put(rvmSpec, new MonitorFactory(monitor));
         }
 
         output = new CombinedOutput(name, rvmSpecFile, monitorSets, monitors,
-                enableSets);
+                enableSets, monitorSetFactories, monitorFactories);
 
         // Set monitor lock for each monitor set
         for (MonitorSet monitorSet : monitorSets.values()) {
@@ -110,6 +117,14 @@ public class RVMOutputCode {
 
         for (MonitorSet monitorSet : this.monitorSets.values())
             ret += monitorSet;
+        ret += "\n";
+
+        for (MonitorSetFactory setFactory : this.monitorSetFactories.values())
+            ret += setFactory;
+        ret += "\n";
+
+        for (MonitorFactory monitorFactory: this.monitorFactories.values())
+            ret += monitorFactory;
         ret += "\n";
 
         for (SuffixMonitor monitor : this.monitors.values())
