@@ -237,6 +237,8 @@ class IndexingTreeNameMangler {
         else
             name += queryParams.parameterStringUnderscore() + "__To__"
                     + contentParams.parameterStringUnderscore();
+        System.out.println("OutputName::" + outputName);
+        System.out.println("queryParams::" + queryParams);
         name += "_Map";
         return name;
     }

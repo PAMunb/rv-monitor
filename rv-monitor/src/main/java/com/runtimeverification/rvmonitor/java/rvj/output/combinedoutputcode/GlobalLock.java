@@ -30,8 +30,8 @@ public class GlobalLock {
             ret += "static final ReentrantLock " + lock
                     + " = new ReentrantLock();\n";
             // Why do we need this?
-            ret += "static final Condition " + lock + "_cond = " + lock
-                    + ".newCondition();\n";
+//            ret += "static final Condition " + lock + "_cond = " + lock
+//                    + ".newCondition();\n";
         }
 
         return ret;

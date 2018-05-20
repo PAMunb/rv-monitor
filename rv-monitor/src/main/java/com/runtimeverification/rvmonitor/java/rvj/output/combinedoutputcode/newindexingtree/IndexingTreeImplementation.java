@@ -24,6 +24,7 @@ import com.runtimeverification.rvmonitor.java.rvj.output.codedom.CodeStmt;
 import com.runtimeverification.rvmonitor.java.rvj.output.codedom.CodeStmtCollection;
 import com.runtimeverification.rvmonitor.java.rvj.output.codedom.CodeVarDeclStmt;
 import com.runtimeverification.rvmonitor.java.rvj.output.codedom.CodeVarRefExpr;
+import com.runtimeverification.rvmonitor.java.rvj.output.codedom.helper.CodeFormatters;
 import com.runtimeverification.rvmonitor.java.rvj.output.codedom.helper.CodeHelper;
 import com.runtimeverification.rvmonitor.java.rvj.output.codedom.helper.CodePair;
 import com.runtimeverification.rvmonitor.java.rvj.output.codedom.helper.CodeVariable;
@@ -134,7 +135,10 @@ public class IndexingTreeImplementation implements ICodeGenerator {
 
         String name = IndexingTreeNameMangler.fieldName(outputName,
                 queryParams, contentParams);
+        System.out.println("Name::" + name);
         this.field = this.topEntry.generateField(name, specParams, queryParams);
+        ICodeFormatter fmt = CodeFormatters.getDefault();
+        System.out.println("This.field::" + this.field);
     }
 
     private IndexingTreeImplementation(IndexingTreeInterface master,
