@@ -219,7 +219,11 @@ public class BaseMonitor extends Monitor {
                         + prop.getPropertyId() + "_Category_" + category);
                 propMonitor.categoryVars.put(category, categoryVar);
 
-                String handlerBody = handlerBodies.get(category);
+                String handlerBody = "RVMLogging.out.println(this.name + " +
+                        "\",violation,\" +  " +
+                        "com.runtimeverification.rvmonitor.java.rt.ViolationRecorder.getLineOfCode());\n";
+
+                handlerBody += handlerBodies.get(category);
 
                 if (handlerBody.toString().length() != 0) {
                     propMonitor.handlerMethods
