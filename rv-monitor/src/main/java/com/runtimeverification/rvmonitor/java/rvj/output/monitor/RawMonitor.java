@@ -228,7 +228,7 @@ public class RawMonitor extends Monitor {
             ret += stat.fieldDecl() + "\n";
         }
 
-        ret += "private String name;\n";
+        ret += "public String name;\n";
         //constructor
         ret += monitorName + "(){\n";
         if (Main.statistics) {

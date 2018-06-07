@@ -840,7 +840,7 @@ public class BaseMonitor extends Monitor {
             ret += fmt.getCode();
         }
 
-        ret += "private String name;\n";
+        ret += "public String name;\n";
         // constructor
         ret += monitorName + "(";
         {
