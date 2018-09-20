@@ -1,7 +1,7 @@
 Detailed Documentation
 ----------------------
 
-For detailed information on RV-Monitor and its use, please see
+For detailed information on RV-Monitor and its use, please see 
 http://runtimeverification.com/monitor/docs (also included in text form in the docs/
 subfolder of this install).
 
