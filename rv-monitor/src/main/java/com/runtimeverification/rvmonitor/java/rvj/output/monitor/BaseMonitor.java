@@ -219,7 +219,7 @@ public class BaseMonitor extends Monitor {
                         + prop.getPropertyId() + "_Category_" + category);
                 propMonitor.categoryVars.put(category, categoryVar);
 
-                String handlerBody = "RVMLogging.out.println(this.name + " +
+                String handlerBody = "RVMLogging.out.println(this.name + \"@\" + this.RVM_timestamp + " +
                         "\",violation,\" +  " +
                         "com.runtimeverification.rvmonitor.java.rt.ViolationRecorder.getLineOfCode());\n";
 
@@ -396,7 +396,7 @@ public class BaseMonitor extends Monitor {
         }
         ret += ") {\n";
 
-        ret += "RVMLogging.out.println(this.name + \","
+        ret += "RVMLogging.out.println(this.name + \"@\" + this.RVM_timestamp + \","
                 + eventMethod.getVarName()
                 + ",\" + com.runtimeverification.rvmonitor.java.rt.ViolationRecorder.getLineOfCode());\n";
 

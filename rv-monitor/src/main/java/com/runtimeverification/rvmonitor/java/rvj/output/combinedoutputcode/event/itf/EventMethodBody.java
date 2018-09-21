@@ -1136,7 +1136,7 @@ public class EventMethodBody extends AdviceBody implements ICodeGenerator {
                     transition.getWeakRefs(), this.getMonitorType(), arg);
             monitorref = create.getDeclaredMonitorRef();
             stmts.add(create);
-            String createdLog = "RVMLogging.out.println(created.name " +
+            String createdLog = "RVMLogging.out.println(created.name + \"@\" + created.RVM_timestamp " +
                     "+ \",creation,\" " +
                     "+ com.runtimeverification.rvmonitor.java.rt.ViolationRecorder.getLineOfCode());";
             stmts.add(CodeStmtCollection.fromLegacy(createdLog));

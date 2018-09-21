@@ -88,7 +88,7 @@ public class RawMonitor extends Monitor {
         RVMJavaCode eventAction = null;
 
         if (event.getAction() != null) {
-            String eventActionStr = "RVMLogging.out.println(this.name + " +
+            String eventActionStr = "RVMLogging.out.println(this.name + \"@\" + this.RVM_timestamp + " +
                     "\",violation,\" +  " +
                     "com.runtimeverification.rvmonitor.java.rt.ViolationRecorder.getLineOfCode());\n";
             eventActionStr += event.getAction();
