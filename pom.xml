@@ -5,19 +5,19 @@
     <artifactId>root</artifactId>
     <packaging>pom</packaging>
     <version>1.4-SNAPSHOT</version>
-    <profiles>
-        <profile>
-            <id>generate-docs</id>
-            <modules>
-                <module>docs</module>
-            </modules>
-            <activation>
-                <property>
-                    <name>!skipDocs</name>
-                </property>
-            </activation>
-        </profile>
-    </profiles>
+    <!-- <profiles> -->
+    <!--     <profile> -->
+    <!--         <id>generate-docs</id> -->
+    <!--         <modules> -->
+    <!--             <module>docs</module> -->
+    <!--         </modules> -->
+    <!--         <activation> -->
+    <!--             <property> -->
+    <!--                 <name>!skipDocs</name> -->
+    <!--             </property> -->
+    <!--         </activation> -->
+    <!--     </profile> -->
+    <!-- </profiles> -->
     <modules>
         <module>rv-monitor-rt</module>
         <module>logicrepository</module>
