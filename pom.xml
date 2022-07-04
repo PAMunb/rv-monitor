@@ -3,23 +3,25 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>br.unb.cic</groupId>
+		<artifactId>mop-parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath />
+	</parent>
+
 	<groupId>com.runtimeverification.rvmonitor</groupId>
 	<artifactId>root</artifactId>
+	<version>1.5-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<version>statistics-1.4</version>
-	<!-- <profiles> -->
-	<!-- <profile> -->
-	<!-- <id>generate-docs</id> -->
-	<!-- <modules> -->
-	<!-- <module>docs</module> -->
-	<!-- </modules> -->
-	<!-- <activation> -->
-	<!-- <property> -->
-	<!-- <name>!skipDocs</name> -->
-	<!-- </property> -->
-	<!-- </activation> -->
-	<!-- </profile> -->
-	<!-- </profiles> -->
+
+	<url>http://www.runtimeverification.com</url>
+	<scm>
+		<connection>scm:git:https://github.com/PAMunb/rv-monitor.git</connection>
+		<tag>HEAD</tag>
+	</scm>
+
 	<modules>
 		<module>rv-monitor-rt</module>
 		<module>logicrepository</module>
@@ -27,55 +29,95 @@
 		<module>rv-monitor</module>
 		<!-- <module>installer</module> -->
 	</modules>
-	<url>http://www.runtimeverification.com</url>
-	<scm>
-		<connection>scm:git:https://github.com/PAMunb/rv-monitor.git</connection>
-		<tag>HEAD</tag>
-	</scm>
-	<repositories>
-		<repository>
-			<id>runtime.verification</id>
-			<name>Runtime Verification Repository</name>
-			<url>https://s3.amazonaws.com/repo.runtime.verification/repository/internal</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>runtime.verification.snapshots</id>
-			<name>Runtime Verification Snapshot Repository</name>
-			<url>https://s3.amazonaws.com/repo.runtime.verification/repository/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-	</repositories>
-	<distributionManagement>
-		<repository>
-			<id>runtime-verification</id>
-			<name>Runtime Verification Repository</name>
-			<url>http://office.runtimeverification.com:8888/repository/internal</url>
-		</repository>
-		<snapshotRepository>
-			<id>runtime-verification.snapshots</id>
-			<name>Runtime Verification Snapshot Repository</name>
-			<url>http://office.runtimeverification.com:8888/repository/snapshots</url>
-		</snapshotRepository>
-	</distributionManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
-			<scope>test</scope>
+			<!-- <scope>test</scope> -->
 		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.maven.surefire</groupId> -->
+		<!-- <artifactId>surefire-junit4</artifactId> -->
+		<!-- <version>${maven-surefire-plugin.version}</version> -->
+		<!-- <scope>test</scope> -->
+		<!-- </dependency> -->
 	</dependencies>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor</groupId>
+				<artifactId>rv-monitor-rt</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor</groupId>
+				<artifactId>logicrepository</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor</groupId>
+				<artifactId>logicrepository</artifactId>
+				<version>${project.version}</version>
+				<type>test-jar</type>
+				<scope>test</scope>
+			</dependency>
+			<!-- Dependency on all the plugins and docs in the logic repository so 
+				the assembly plugin sees them. -->
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor.logicrepository.plugins</groupId>
+				<artifactId>cfg</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor.logicrepository.plugins</groupId>
+				<artifactId>ere</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor.logicrepository.plugins</groupId>
+				<artifactId>fsm</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor.logicrepository.plugins</groupId>
+				<artifactId>ltl</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor.logicrepository.plugins</groupId>
+				<artifactId>pda</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor.logicrepository.plugins</groupId>
+				<artifactId>po</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor.logicrepository.plugins</groupId>
+				<artifactId>ptcaret</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor.logicrepository.plugins</groupId>
+				<artifactId>ptltl</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor.logicrepository.plugins</groupId>
+				<artifactId>srs</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.runtimeverification.rvmonitor.logicrepository.plugins</groupId>
+				<artifactId>tfsm</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<build>
 		<pluginManagement>
 			<plugins>
@@ -94,25 +136,56 @@
 						<jdkVersion>1.6</jdkVersion>
 					</configuration>
 				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.1</version>
-					<configuration>
-						<source>1.7</source>
-						<target>1.7</target>
-						<useIncrementalCompilation>false</useIncrementalCompilation>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-release-plugin</artifactId>
-					<version>2.5</version>
-				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+	<!-- <profiles> -->
+	<!-- <profile> -->
+	<!-- <id>generate-docs</id> -->
+	<!-- <modules> -->
+	<!-- <module>docs</module> -->
+	<!-- </modules> -->
+	<!-- <activation> -->
+	<!-- <property> -->
+	<!-- <name>!skipDocs</name> -->
+	<!-- </property> -->
+	<!-- </activation> -->
+	<!-- </profile> -->
+	<!-- </profiles> -->
+	<!-- <repositories> -->
+	<!-- <repository> -->
+	<!-- <id>runtime.verification</id> -->
+	<!-- <name>Runtime Verification Repository</name> -->
+	<!-- <url>https://s3.amazonaws.com/repo.runtime.verification/repository/internal</url> -->
+	<!-- <snapshots> -->
+	<!-- <enabled>false</enabled> -->
+	<!-- </snapshots> -->
+	<!-- <releases> -->
+	<!-- <enabled>true</enabled> -->
+	<!-- </releases> -->
+	<!-- </repository> -->
+	<!-- <repository> -->
+	<!-- <id>runtime.verification.snapshots</id> -->
+	<!-- <name>Runtime Verification Snapshot Repository</name> -->
+	<!-- <url>https://s3.amazonaws.com/repo.runtime.verification/repository/snapshots</url> -->
+	<!-- <snapshots> -->
+	<!-- <enabled>true</enabled> -->
+	<!-- </snapshots> -->
+	<!-- <releases> -->
+	<!-- <enabled>false</enabled> -->
+	<!-- </releases> -->
+	<!-- </repository> -->
+	<!-- </repositories> -->
+	<!-- <distributionManagement> -->
+	<!-- <repository> -->
+	<!-- <id>runtime-verification</id> -->
+	<!-- <name>Runtime Verification Repository</name> -->
+	<!-- <url>http://office.runtimeverification.com:8888/repository/internal</url> -->
+	<!-- </repository> -->
+	<!-- <snapshotRepository> -->
+	<!-- <id>runtime-verification.snapshots</id> -->
+	<!-- <name>Runtime Verification Snapshot Repository</name> -->
+	<!-- <url>http://office.runtimeverification.com:8888/repository/snapshots</url> -->
+	<!-- </snapshotRepository> -->
+	<!-- </distributionManagement> -->
 </project>
