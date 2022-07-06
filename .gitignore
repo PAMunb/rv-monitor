@@ -38,3 +38,4 @@ examples/llvmmop/safety_critical/six_steps/test_*/test*.bc*
 
 target/**
 *.iml
+/target/

@@ -10,9 +10,13 @@
 	<artifactId>ptltl</artifactId>
 	<name>ptltl</name>
 
+<!-- https://docs.scala-lang.org/overviews/jdk-compatibility/overview.html -->
+
 	<properties>
-		<scala.version>2.12.16</scala.version>
-		<scala.compat.version>2.12</scala.compat.version>
+<!-- 		<scala.version>2.12.16</scala.version> -->
+<!-- 		<scala.compat.version>2.12</scala.compat.version> -->
+<scala.version>2.11.12</scala.version>
+		<scala.compat.version>2.11</scala.compat.version>
 	</properties>
 
 	<dependencies>
